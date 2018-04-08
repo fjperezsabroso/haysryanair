@@ -1,5 +1,3 @@
-# haysryanair
-
 # HaysRyanair
 This is a maven project to meet the following requirements:
   - Automate a booking up to a declined payment on 'https://www.ryanair.com/ie/en'.
