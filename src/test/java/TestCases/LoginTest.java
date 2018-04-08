@@ -105,7 +105,7 @@ public class LoginTest {
     public void driverDeletion(){
 
         //Commented to checkout the results
-        //this.driver.quit();
+        this.driver.quit();
         this.testReport.log(LogStatus.INFO, "Browser closed");
         extent.endTest(this.testReport);
 
