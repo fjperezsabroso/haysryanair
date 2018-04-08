@@ -2,7 +2,11 @@ package TestCases;
 
 import Driver.DriverGenerator;
 import Pages.*;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -11,6 +15,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,10 +59,18 @@ public class LoginTest {
         this.testReport.log(LogStatus.INFO, "Logging in as Testing Tester");
         this.mainPage.login("fj.perez.sabroso+1@gmail.com","Password01");
         this.testReport.log(LogStatus.INFO, "Selecting a flight Madrid->Brussels on 14/05/18 for 2 adults and 1 child");
-        this.mainPage.selectOneWayFlight("Madrid", "Brussels",
-                "14","05","2018",
-                2,0,1,0);
+        try {
+            this.mainPage.selectOneWayFlight("Madrid", "Brussels",
+                    "14", "05", "2018",
+                    2, 0, 1, 0);
+        }catch(Exception e){
+            try{
+                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(screenshot, new File("reports/images/paymenterror.png"));
+                this.testReport.log(LogStatus.FATAL, "Payment method not found: " + this.testReport.addScreenCapture("images/paymenterror.png"));
 
+            }catch(Exception i){}
+        }
         //FlightSelectionPage Phase
         FlightSelectionPage flightSelectionPage = new FlightSelectionPage(this.driver);
         //I could be using asserts but this makes the code clearer for logging purposes

@@ -23,9 +23,7 @@ public class DriverGenerator {
         options.addArguments("disable-infobars");
         //Avoid notifications
         options.addArguments("--disable-notifications");
-        //Headless option to optimize running times
-        options.addArguments("headless");
-        //FullScreen
+       //FullScreen
         options.addArguments("--start-fullscreen");
         this.driver = new ChromeDriver(this.options);
         return this.driver;
